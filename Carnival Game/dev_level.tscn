@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2rmd6h7148x0"]
+
+[ext_resource type="PackedScene" uid="uid://d36u63jcjaym8" path="res://player.tscn" id="1_5u64u"]
+[ext_resource type="Script" path="res://booth_test.gd" id="2_n78f5"]
+[ext_resource type="Texture2D" uid="uid://bg2tnhmpdln04" path="res://icon.svg" id="2_xvo4w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e232m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mk6ij"]
+radius = 111.221
+
+[node name="Node2D" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_5u64u")]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_n78f5")
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(512, 5)
+texture = ExtResource("2_xvo4w")
+
+[node name="collision" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(508, 6)
+shape = SubResource("RectangleShape2D_e232m")
+
+[node name="level_enter" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(432, -78)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/level_enter"]
+position = Vector2(77, 85)
+shape = SubResource("CircleShape2D_mk6ij")
+
+[connection signal="tree_entered" from="player" to="CharacterBody2D" method="_on_player_tree_entered"]
+[connection signal="body_entered" from="CharacterBody2D/level_enter" to="CharacterBody2D" method="_on_level_enter_body_entered"]
