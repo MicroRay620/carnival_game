@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://6j4q47sb2exh"]
+
+[ext_resource type="Script" path="res://menu_screen.gd" id="1_d12e2"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 42.0
+offset_top = 26.0
+offset_right = 82.0
+offset_bottom = 66.0
+script = ExtResource("1_d12e2")
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 300.0
+offset_right = 800.0
+offset_bottom = 358.0
+text = "Restart"
+
+[connection signal="pressed" from="Control/Button" to="Control" method="_on_button_pressed"]

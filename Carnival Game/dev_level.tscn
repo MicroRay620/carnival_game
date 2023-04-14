@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://b2rmd6h7148x0"]
+
+[ext_resource type="PackedScene" uid="uid://d36u63jcjaym8" path="res://player.tscn" id="1_5u64u"]
+[ext_resource type="Script" path="res://booth_test.gd" id="2_n78f5"]
+[ext_resource type="Texture2D" uid="uid://bg2tnhmpdln04" path="res://icon.svg" id="2_xvo4w"]
+[ext_resource type="Script" path="res://balloon_booth.gd" id="5_nag7g"]
+
+[sub_resource type="GDScript" id="GDScript_6qe2u"]
+script/source = "extends Node2D
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e232m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mk6ij"]
+radius = 139.703
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_inliy"]
+size = Vector2(96, 90.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xd1ir"]
+radius = 146.055
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_6qe2u")
+
+[node name="player" parent="." instance=ExtResource("1_5u64u")]
+
+[node name="fish_booth" type="CharacterBody2D" parent="."]
+position = Vector2(411, 48)
+script = ExtResource("2_n78f5")
+
+[node name="Icon" type="Sprite2D" parent="fish_booth"]
+position = Vector2(512, 5)
+texture = ExtResource("2_xvo4w")
+
+[node name="fish_collision" type="CollisionShape2D" parent="fish_booth"]
+position = Vector2(508, 6)
+shape = SubResource("RectangleShape2D_e232m")
+
+[node name="fish_enter" type="Area2D" parent="fish_booth"]
+position = Vector2(432, -78)
+
+[node name="fish_enter" type="CollisionShape2D" parent="fish_booth/fish_enter"]
+position = Vector2(77, 85)
+shape = SubResource("CircleShape2D_mk6ij")
+
+[node name="balloon_booth" type="CharacterBody2D" parent="."]
+position = Vector2(424, 285)
+script = ExtResource("5_nag7g")
+
+[node name="balloon_sprite" type="Sprite2D" parent="balloon_booth"]
+position = Vector2(114, 105)
+texture = ExtResource("2_xvo4w")
+
+[node name="balloon_collision" type="CollisionShape2D" parent="balloon_booth"]
+position = Vector2(113, 105)
+shape = SubResource("RectangleShape2D_inliy")
+
+[node name="balloon_enter" type="Area2D" parent="balloon_booth"]
+position = Vector2(-48, 72)
+
+[node name="balloon_enter" type="CollisionShape2D" parent="balloon_booth/balloon_enter"]
+position = Vector2(158, 30)
+shape = SubResource("CircleShape2D_xd1ir")
+
+[connection signal="body_entered" from="fish_booth/fish_enter" to="fish_booth" method="_on_fish_enter_body_entered"]
+[connection signal="body_exited" from="fish_booth/fish_enter" to="fish_booth" method="_on_fish_enter_body_exited"]
+[connection signal="body_entered" from="balloon_booth/balloon_enter" to="balloon_booth" method="_on_balloon_enter_body_entered"]
+[connection signal="body_exited" from="balloon_booth/balloon_enter" to="balloon_booth" method="_on_balloon_enter_body_exited"]
